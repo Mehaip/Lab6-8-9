@@ -29,6 +29,8 @@ void MaterieService::add_default() {
 	addMaterieService("Biologie", "Paduraru", 10);
 	addMaterieService("Biologie", "Mihail", 6);
 	addMaterieService("Sport", "Andrei", 5);
+	Materie m = Materie{ "ASC", "Mircea", 32 };
+	std::cout << m;
 }
 
 void MaterieService::delete_materie(string nume, string profesor) {
