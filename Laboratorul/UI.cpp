@@ -39,6 +39,7 @@ void ConsoleUI::run() {
 		
 		
 		this->printMenu();
+		printeaza_toate_materiile(service.primeste_toate_materiile());
 		printf(">>> ");
 		
 			cin >> command;
