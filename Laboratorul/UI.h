@@ -10,5 +10,5 @@ public:
 	ConsoleUI(MaterieService& service) : service{ service } {};
 	const void printMenu();
 	void run();
-	void printeaza_toate_materiile(vector<Materie> lista) const;
+	void printeaza_toate_materiile(const vector<Materie>& lista) const;
 };

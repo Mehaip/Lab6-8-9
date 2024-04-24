@@ -16,10 +16,11 @@ const void ConsoleUI::printMenu() {
 	printf("6. Sort\n");
 	printf("7. Contract\n");
 	printf("8. Undo\n");
+	printf("9. Print all\n");
 	printf("0. Exit\n");
 }
 
-void ConsoleUI::printeaza_toate_materiile(vector<Materie> lista) const {
+void ConsoleUI::printeaza_toate_materiile(const vector<Materie>& lista) const {
 	int i = 1;
 	printf("===============\n");
 	for (const Materie& materie : lista) {
@@ -37,7 +38,6 @@ void ConsoleUI::run() {
 	while (1) {
 		
 		
-		printeaza_toate_materiile(this->service.primeste_toate_materiile());
 		this->printMenu();
 		printf(">>> ");
 		
@@ -216,6 +216,10 @@ void ConsoleUI::run() {
 			catch(const char* e){
 				cout << "Error:\n" << e;
 			}
+		}
+		else if (command == 9) {
+						const vector<Materie>& materii = service.primeste_toate_materiile();
+						printeaza_toate_materiile(materii);
 		}
 		else cout << "Error: Se pot introduce [1, 8]\n";
 		

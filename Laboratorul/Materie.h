@@ -21,7 +21,7 @@ public:
 	
 	Materie(const Materie& copy) : nume{ copy.nume }, profesor{ copy.profesor }, ore{ copy.ore }
 	{
-		///printf("Copy constructor called!\n");
+		printf("Copy constructor called!\n");
 	};
 
 	// Getters
