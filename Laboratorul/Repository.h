@@ -1,16 +1,31 @@
 #include <vector>
 #include "Materie.h"
 using std::vector;
-/*
-class RepoException {
-private:
-	string errorMsg;
+
+class RepoAbstract {
 public:
-	RepoException(string errorMsg) : errorMsg{ errorMsg } {};
-	string getErrorMessage() {
-		return this->errorMsg;
-	}
-};*/
+	///print all materie
+	virtual const vector<Materie>& primeste_toate_materiile() const;
+
+	///add materie
+	virtual void add_materie(const Materie& m);
+
+	///inseram materie pe pozitia introdusa
+	virtual void insert_materie(const Materie& m, int poz);
+
+	///find pozitia materiei si returneaza un int
+	int get_materie_position(string nume, string profesor) const;
+
+	/// sterge materia in functie de pozitia primita
+	void delete_materie(int position);
+
+	///modifica materia in functie de pozitia primita si noile date
+	void update_materie(int position, string new_nume, string new_profesor, int new_ora);
+
+	///undo functie
+	void undo();
+};
+
 
 class MaterieRepository {
 private:
