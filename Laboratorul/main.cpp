@@ -21,7 +21,6 @@ void startApp() {
 	MaterieValidator val;
 	MaterieService service{ repo, val };
 	ConsoleUI ui{ service};
-
 	ui.run();
 
 

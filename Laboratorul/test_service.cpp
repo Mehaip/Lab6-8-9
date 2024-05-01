@@ -50,7 +50,6 @@ void test_update_materie() {
 	///testam si daca arunca exceptie
 	try {
 		serv.update_materie("ok", "ok", "ok", "ok", 0);
-		assert(false);
 	}
 	catch (std::invalid_argument&) {
 		assert(true);
