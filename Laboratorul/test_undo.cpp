@@ -4,7 +4,8 @@
 void test_undo_add() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService srv{ repo,val };
+	Contract contract;
+	MaterieService srv{ repo,val, contract };
 	srv.addMaterieService("Mate", "Oana", 10);
 	srv.undo();
 	assert(srv.primeste_toate_materiile().size() == 0);
@@ -13,7 +14,8 @@ void test_undo_add() {
 void test_undo_delete() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService srv{ repo,val };
+	Contract contract;
+	MaterieService srv(repo, val, contract);
 	srv.addMaterieService("Mate", "Oana", 10);
 	srv.delete_materie("Mate", "Oana");
 	srv.undo();
@@ -23,7 +25,8 @@ void test_undo_delete() {
 void test_undo_update() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService srv{ repo,val };
+	Contract contract;
+	MaterieService srv(repo, val, contract);
 	srv.addMaterieService("Mate", "Oana", 10);
 	srv.update_materie("Mate", "Oana", "Mate", "Aurel", 20);
 	assert(srv.primeste_toate_materiile()[0].getOre() == 20);

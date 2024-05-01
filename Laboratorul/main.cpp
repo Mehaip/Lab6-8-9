@@ -19,7 +19,8 @@ void tests() {
 void startApp() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService service{ repo, val };
+	Contract contract;
+	MaterieService service{ repo, val, contract };
 	ConsoleUI ui{ service};
 	ui.run();
 

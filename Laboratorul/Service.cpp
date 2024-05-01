@@ -115,3 +115,39 @@ void MaterieService::undo() {
 	undoActions.back()->doUndo();
 	undoActions.pop_back();
 }
+
+void MaterieService::contract_add(string nume, string profesor) {
+
+		int value = get_materie_position(nume, profesor);
+		if (value == -1)
+			throw std::invalid_argument("Materia nu exista in lista.\n");
+		else {
+			Materie m = primeste_toate_materiile()[value];
+			contract.add_materie_to_contract(m);
+		}
+	
+}
+
+void MaterieService::contract_empty() {
+	contract.empty_contract();
+}
+
+void MaterieService::contract_random(int number) {
+	if (number > primeste_toate_materiile().size())
+		throw std::invalid_argument("Numarul introdus depaseste marimea!\n");
+
+	contract.add_random_contracts(primeste_toate_materiile(), number);
+}
+
+void MaterieService::contract_export(string filename) {
+	contract.save_to_file(filename);
+}
+
+vector<MaterieDTO> MaterieService::contract_raport() {
+	return contract.raport();
+}
+
+vector<Materie> MaterieService::contract_get_all() {
+	return contract.primeste_toate();
+}
+

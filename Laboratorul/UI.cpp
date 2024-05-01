@@ -31,15 +31,15 @@ void ConsoleUI::printeaza_toate_materiile(const vector<Materie>& lista) const {
 
 void ConsoleUI::run() {
 	
-	Contract contract;
 	this->service.add_default();
 	int command;
+	printf("\n\n\n\n\n");
 
 	while (1) {
 		
 		
-		this->printMenu();
 		printeaza_toate_materiile(service.primeste_toate_materiile());
+		this->printMenu();
 		printf(">>> ");
 		
 			cin >> command;
@@ -149,15 +149,10 @@ void ConsoleUI::run() {
 				cin >> nume;
 				printf("Nume profesor: ");
 				cin >> profesor;
-				cout << "Materie added to contract!\n";
+				
 				try {
-					int value = service.get_materie_position(nume, profesor);
-					if (value == -1)
-						throw std::invalid_argument("Materia nu exista in lista.\n");
-					else {
-						contract.add_materie_to_contract(service.primeste_toate_materiile()[value]);
-						cout << "Materie added to contract!\n";
-					}
+					service.contract_add(nume, profesor);
+					cout << "Materie added to contract!\n";
 				}
 				catch (const std::invalid_argument& e) {
 					cerr << "Errors:\n " << e.what() << "\n";
@@ -166,7 +161,7 @@ void ConsoleUI::run() {
 
 			}
 			else if (command2 == 2) {
-				contract.empty_contract();
+				service.contract_empty();
 				cout << "Contract emptied!\n";
 			}
 			else if (command2 == 3) {
@@ -174,14 +169,9 @@ void ConsoleUI::run() {
 				int i;
 				cin >> i;
 				try {
-					if (i <= service.primeste_toate_materiile().size())
-					{
-						contract.add_random_contracts(service.primeste_toate_materiile(), i);
-						cout << i << " elements added to contract!\n";
+					service.contract_random(i);
+					cout << i << " elements added to contract!\n";
 					}
-					else
-						throw std::invalid_argument("Numarul introdus depaseste marimea sirului\n");
-				}
 				catch (const std::invalid_argument& e) {
 					cerr << "Errors:\n " << e.what() << "\n";
 
@@ -193,18 +183,18 @@ void ConsoleUI::run() {
 				cout << "Insert filename: ";
 				string filename;
 				cin >> filename;
-				contract.save_to_file(filename);
+				service.contract_export(filename);
 			}
 			else if (command2 == 5) {
 				printf("Materia si aparitiile ei: \n");
-				vector<MaterieDTO> lista_materii = contract.raport();
+				vector<MaterieDTO> lista_materii = service.contract_raport();
 
 				for (MaterieDTO it : lista_materii) {
 					cout << it.get_nume() << ": " << it.get_aparitii()<<"\n";
 				}
 			}
 			else cout << "Error: Se pot introduce valorile 1 2 3 4 sau 5!\n";
-			cout << "Contractul contine " << contract.primeste_toate().size() << " elemente\n";
+			cout << "Contractul contine " << service.contract_get_all().size() << " elemente\n";
 
 
 

@@ -4,7 +4,8 @@
 void test_add_si_get_all_materii() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	vector<Materie> materii = serv.primeste_toate_materiile();
 	assert(materii.size() == 12);
@@ -16,7 +17,8 @@ void test_add_si_get_all_materii() {
 void test_delete_materie() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	vector<Materie> materii = serv.primeste_toate_materiile();
 	assert(materii.size() == 12);
@@ -41,7 +43,8 @@ void test_delete_materie() {
 void test_update_materie() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	vector<Materie> materii = serv.primeste_toate_materiile();
 	serv.update_materie("ASC", "Mircea", "Mate", "George", 4);
@@ -60,7 +63,8 @@ void test_update_materie() {
 void test_filter_by_ore() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	assert(serv.filter_by_ore(5).size() == 2);
 	printf("TEST!\n");
@@ -69,7 +73,8 @@ void test_filter_by_ore() {
 void test_filter_by_profesor() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	assert(serv.filter_by_profesor("Mircea").size() == 2);
 }
@@ -77,7 +82,8 @@ void test_filter_by_profesor() {
 void test_sort_by_ore() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	assert(serv.sort_func(2)[0].getOre() == 4);
 	assert(serv.sort_func(1)[0].getNume() == "ASC");
@@ -88,12 +94,32 @@ void test_sort_by_ore() {
 void test_repo_insert() {
 	MaterieRepository repo;
 	MaterieValidator val;
-	MaterieService serv(repo, val);
+	Contract contract;
+	MaterieService serv(repo, val, contract);
 	serv.add_default();
 	Materie m{ "Sisteme de operare", "Emanuel", 15 };
 	repo.insert_materie(m, 3);
 	assert(serv.primeste_toate_materiile()[3].getNume() == "Sisteme de operare");
 
+
+}
+
+void test_contract(){
+	MaterieRepository repo;
+	MaterieValidator val;
+	Contract contract;
+	MaterieService serv(repo, val, contract);
+	serv.add_default();
+	serv.contract_add("ASC", "Mircea");
+	assert(serv.contract_get_all().size() == 1);
+	serv.contract_empty();
+	assert(serv.contract_get_all().size() == 0);
+
+	serv.contract_random(4);
+	assert(serv.contract_get_all().size() == 4);
+	vector<MaterieDTO> lista = serv.contract_raport();
+	assert(lista.size() == 4);
+	serv.contract_empty();
 
 }
 
@@ -107,6 +133,7 @@ void test_service() {
 	test_filter_by_profesor();
 	test_sort_by_ore();
 	test_repo_insert();
+	test_contract();
 	printf("Repository tested!\n");
 	printf("Service tested!\n");
 

@@ -3,16 +3,19 @@
 #include "Validators.h"
 using std::unique_ptr;
 #include "Undo.h"
+#include "ContractStudii.h"
 
 class MaterieService {
 private:
 	MaterieRepository& repo;
 	MaterieValidator& val;
+	Contract contract;
 	std::vector<unique_ptr<ActiuneUndo>> undoActions;
 public:
 
 
-	MaterieService(MaterieRepository& materieRepo, MaterieValidator& materieVal) : repo{ materieRepo }, val{materieVal} {};
+	MaterieService(MaterieRepository& materieRepo, MaterieValidator& materieVal, Contract& contract) :
+		repo{ materieRepo }, val{ materieVal }, contract{ contract } {};
 	MaterieService(const MaterieService& other) = delete;
 
 	/// <summary>
@@ -88,6 +91,13 @@ public:
 	/// <param name="s"></param>
 
 	void undo();
+
+	void contract_add(string nume, string profesor);
+	void contract_empty();
+	void contract_random(int number);
+	void contract_export(string filename);
+	vector<MaterieDTO> contract_raport();
+	vector<Materie> contract_get_all();
 
 
 };
