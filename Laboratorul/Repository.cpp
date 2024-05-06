@@ -39,6 +39,8 @@ void MaterieRepository::update_materie(int position, string new_nume, string new
 	this->toateMateriile[position].setOre(new_ore);
 }
 
+///File
+
 
 void FileRepository::load_from_file() {
 
@@ -72,3 +74,31 @@ void FileRepository::save_to_file() const {
 	}
 	fout.close();
 }
+
+///Probability
+
+void ProbabilityRepo::det_luck() {
+	///utilizatorul introduce chance (0 -> 100)
+	int nr = rand() % 100;
+	///daca nr <= prob, atunci este successful
+	if (nr <= prob)
+		return;
+	throw runtime_error("Unlucky\n");
+}
+
+void ProbabilityRepo::add_materie(const Materie& m) {
+	det_luck();
+	elems.insert(make_pair(elems.size(), m));
+}
+
+void ProbabilityRepo::delete_materie(int poz) {
+	det_luck();
+	elems.erase(poz);
+	map<int, Materie> new_elems;
+	for (auto& it : elems) {
+		new_elems.insert(make_pair(new_elems.size(), it.second()));
+	}
+	elems = new_elems;
+}
+
+void ProbabilityRepo::

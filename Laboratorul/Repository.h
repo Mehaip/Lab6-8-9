@@ -2,7 +2,7 @@
 #include "Materie.h"
 #include <map>
 using std::vector;
-
+using std::map;
 class AbstractRepo {
 public:
 	///print all materie
@@ -97,6 +97,7 @@ public:
 
 class ProbabilityRepo :public AbstractRepo {
 private:
+	map<int, Materie> elems;
 	float prob;
 	void det_luck();
 public:
