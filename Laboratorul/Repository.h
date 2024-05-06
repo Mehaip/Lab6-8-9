@@ -99,7 +99,7 @@ class ProbabilityRepo :public AbstractRepo {
 private:
 	map<int, Materie> elems;
 	float prob;
-	void det_luck();
+	void det_luck() const;
 public:
 	ProbabilityRepo() = default;
 	explicit ProbabilityRepo(float chance);

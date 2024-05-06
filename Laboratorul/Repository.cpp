@@ -77,15 +77,17 @@ void FileRepository::save_to_file() const {
 
 ///Probability
 
-void ProbabilityRepo::det_luck() {
-	///utilizatorul introduce chance (0 -> 100)
+void ProbabilityRepo::det_luck() const {
+	///utilizatorul introduce chance (0 -> 1)
 	int nr = rand() % 100;
+	float probprocent = prob;
+	probprocent *= 100;
 	///daca nr <= prob, atunci este successful
-	if (nr <= prob)
+	if (nr <= probprocent)
 		return;
 	throw runtime_error("Unlucky\n");
 }
-
+/*
 void ProbabilityRepo::add_materie(const Materie& m) {
 	det_luck();
 	elems.insert(make_pair(elems.size(), m));
@@ -123,4 +125,6 @@ const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
 	for (auto& it : elems) {
 		all.push_back(it.second);
 	}
-}
+
+	return all;
+}*/
