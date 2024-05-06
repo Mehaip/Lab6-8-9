@@ -117,7 +117,7 @@ void ProbabilityRepo::update_materie(int position, string new_nume, string new_p
 			break;
 		}
 	}
-}
+}.
 
 vector<Materie> all;
 const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
