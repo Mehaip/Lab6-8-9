@@ -111,12 +111,6 @@ public:
 	///add materie
 	void add_materie(const Materie& m)  override;
 
-	///inseram materie pe pozitia introdusa
-	void insert_materie(const Materie& m, int poz) override;
-
-	///find pozitia materiei si returneaza un int
-	int get_materie_position(string nume, string profesor) const override;
-
 	/// sterge materia in functie de pozitia primita
 	void delete_materie(int position) override;
 

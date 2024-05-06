@@ -96,9 +96,31 @@ void ProbabilityRepo::delete_materie(int poz) {
 	elems.erase(poz);
 	map<int, Materie> new_elems;
 	for (auto& it : elems) {
-		new_elems.insert(make_pair(new_elems.size(), it.second()));
+		new_elems.insert(make_pair(new_elems.size(), it.second));
 	}
 	elems = new_elems;
 }
 
-void ProbabilityRepo::
+void ProbabilityRepo::update_materie(int position, string new_nume, string new_profesor, int new_ora) {
+
+	det_luck();
+	for (auto& it : elems) {
+		if (it.first == position){
+
+			it.second.setNume(new_nume);
+			it.second.setProfesor(new_profesor);
+			it.second.setOre(new_ora);
+
+			break;
+			}
+	}
+}
+
+const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
+	det_luck();
+	vector<Materie> all;
+
+	for (auto& it : elems) {
+		all.push_back(it.second);
+	}
+}
