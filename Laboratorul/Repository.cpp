@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-
 using namespace std;
 
 const vector<Materie>& MaterieRepository::primeste_toate_materiile() const{
@@ -87,18 +86,20 @@ void ProbabilityRepo::det_luck() const {
 		return;
 	throw runtime_error("Unlucky\n");
 }
-/*
+
 void ProbabilityRepo::add_materie(const Materie& m) {
 	det_luck();
-	elems.insert(make_pair(elems.size(), m));
+	int count = static_cast<int> (elems.size());
+	elems.insert(make_pair(count, m));
 }
 
 void ProbabilityRepo::delete_materie(int poz) {
 	det_luck();
 	elems.erase(poz);
+	int count = 0;
 	map<int, Materie> new_elems;
 	for (auto& it : elems) {
-		new_elems.insert(make_pair(new_elems.size(), it.second));
+		new_elems.insert(make_pair(count++, it.second));
 	}
 	elems = new_elems;
 }
@@ -107,24 +108,25 @@ void ProbabilityRepo::update_materie(int position, string new_nume, string new_p
 
 	det_luck();
 	for (auto& it : elems) {
-		if (it.first == position){
+		if (it.first == position) {
 
 			it.second.setNume(new_nume);
 			it.second.setProfesor(new_profesor);
 			it.second.setOre(new_ora);
 
 			break;
-			}
+		}
 	}
 }
 
+vector<Materie> all;
 const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
 	det_luck();
-	vector<Materie> all;
+	
 
 	for (auto& it : elems) {
 		all.push_back(it.second);
 	}
 
 	return all;
-}*/
+}
