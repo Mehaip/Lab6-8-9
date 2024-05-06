@@ -1,7 +1,10 @@
 #include "Repository.h"
 #include <vector>
 #include <algorithm>
-using std::vector;
+#include <fstream>
+#include <sstream>
+
+using namespace std;
 
 const vector<Materie>& MaterieRepository::primeste_toate_materiile() const{
 	return this->toateMateriile;
@@ -34,4 +37,38 @@ void MaterieRepository::update_materie(int position, string new_nume, string new
 	this->toateMateriile[position].setNume(new_nume);
 	this->toateMateriile[position].setProfesor(new_profesor);
 	this->toateMateriile[position].setOre(new_ore);
+}
+
+
+void FileRepository::load_from_file() {
+
+	std::ifstream fin(filename);
+	string line;
+	while (getline(fin, line)) {
+		istringstream iss(line);
+		string nume_materie;
+		iss >> nume_materie;
+		string profesor;
+		iss >> profesor;
+		string ore;
+		iss >> ore;
+		int ore_int;
+		ore_int = stoi(ore);
+		Materie m(nume_materie, profesor, ore_int);
+		MaterieRepository::add_materie(m);
+
+
+	}
+	fin.close();
+}
+
+void FileRepository::save_to_file() const {
+	ofstream fout(filename);
+	int index = 0;
+	for (auto& it : primeste_toate_materiile()) {
+		fout << it.getNume() << " " << it.getProfesor() << " " << it.getOre();
+		if (index != primeste_toate_materiile().size())
+			fout << "\n";
+	}
+	fout.close();
 }

@@ -27,6 +27,7 @@ void startApp() {
 
 }
 
+
 int main() {
 	tests();
 	startApp();
