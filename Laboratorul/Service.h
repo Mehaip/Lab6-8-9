@@ -7,14 +7,14 @@ using std::unique_ptr;
 
 class MaterieService {
 private:
-	MaterieRepository& repo;
+	AbstractRepo& repo;
 	MaterieValidator& val;
 	Contract contract;
-	std::vector<unique_ptr<ActiuneUndo>> undoActions;
+	std::vector<ActiuneUndo*> undoActions;
 public:
 
 
-	MaterieService(MaterieRepository& materieRepo, MaterieValidator& materieVal, Contract& contract) :
+	MaterieService(AbstractRepo& materieRepo, MaterieValidator& materieVal, Contract& contract) :
 		repo{ materieRepo }, val{ materieVal }, contract{ contract } {};
 	MaterieService(const MaterieService& other) = delete;
 

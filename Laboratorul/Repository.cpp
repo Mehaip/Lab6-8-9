@@ -117,11 +117,11 @@ void ProbabilityRepo::update_materie(int position, string new_nume, string new_p
 			break;
 		}
 	}
-}.
+}
 
 vector<Materie> all;
 const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
-	det_luck();
+	///det_luck();
 	
 
 	for (auto& it : elems) {
@@ -129,4 +129,33 @@ const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
 	}
 
 	return all;
+}
+
+void ProbabilityRepo::insert_materie(const Materie& m, int poz) {
+	///det_luck();
+
+	map<int, Materie> new_elems;
+
+	for (auto& it : elems) {
+		if (it.first == poz) {
+			new_elems.insert(make_pair(poz, m));
+			new_elems.insert(make_pair(poz + 1, it.second));
+		}
+		if (it.first > poz) {
+			new_elems.insert(make_pair(poz + 1, it.second));
+		}
+		if (it.first < poz)
+			new_elems.insert(make_pair(poz, it.second));
+	}
+
+	elems = new_elems;
+
+}
+
+int ProbabilityRepo::get_materie_position(string nume, string profesor) const {
+	for (auto& it : elems) {
+		if (it.second.getNume() == nume && it.second.getProfesor() == profesor)
+			return it.first;
+	}
+	return -1;
 }

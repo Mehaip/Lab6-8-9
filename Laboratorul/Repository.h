@@ -102,7 +102,7 @@ private:
 	void det_luck() const;
 public:
 	ProbabilityRepo() = default;
-	explicit ProbabilityRepo(float chance);
+	explicit ProbabilityRepo(float chance) : prob{ chance } {};
 
 
 	///print all materie
@@ -117,6 +117,11 @@ public:
 	///modifica materia in functie de pozitia primita si noile date
 	void update_materie(int position, string new_nume, string new_profesor, int new_ora) override;
 
+	void insert_materie(const Materie& m, int poz) override;
+
+	int get_materie_position(string nume, string profesor) const override;
+
+	
 
 
 };

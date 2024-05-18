@@ -18,9 +18,10 @@ void tests() {
 
 void startApp() {
 	MaterieRepository repo;
+	ProbabilityRepo repo_prob(0.5);
 	MaterieValidator val;
 	Contract contract;
-	MaterieService service{ repo, val, contract };
+	MaterieService service{ repo_prob, val, contract };
 	ConsoleUI ui{ service};
 	ui.run();
 
@@ -31,4 +32,5 @@ void startApp() {
 int main() {
 	tests();
 	startApp();
+
 }

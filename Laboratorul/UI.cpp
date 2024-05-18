@@ -17,6 +17,7 @@ const void ConsoleUI::printMenu() {
 	printf("7. Contract\n");
 	printf("8. Undo\n");
 	printf("9. Print all\n");
+	printf("10. Luck mode");
 	printf("0. Exit\n");
 }
 
@@ -211,6 +212,11 @@ void ConsoleUI::run() {
 		else if (command == 9) {
 						const vector<Materie>& materii = service.primeste_toate_materiile();
 						printeaza_toate_materiile(materii);
+		}
+		else if (command == 10) {
+			int numar;
+			cout << "Enter a number 0 - 1: ";
+			cin >> numar;
 		}
 		else cout << "Error: Se pot introduce [1, 8]\n";
 		

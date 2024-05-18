@@ -9,37 +9,51 @@ const vector<Materie>& MaterieService::primeste_toate_materiile() {
 }
 
 void MaterieService::addMaterieService(string nume, string profesor, int ore) {
-	Materie materie{ nume, profesor, ore };
-	val.valideaza(materie);
-	repo.add_materie(materie);
-	undoActions.push_back(std::make_unique<UndoAdd>(repo, materie));
+	try {
+		Materie materie{ nume, profesor, ore };
+		val.valideaza(materie);
+		repo.add_materie(materie);
+		undoActions.push_back(new UndoAdd(repo, materie));
+	}
+	catch (std::runtime_error& e) {
+		std::cout << e.what();
+	}
 }
 
 
 void MaterieService::add_default() {
-	addMaterieService("ASC", "Mircea", 32);
-	addMaterieService("POO", "Ana", 10);
-	addMaterieService("Mate", "Larisa", 15);
-	addMaterieService("Logica", "Mihai", 24);
-	addMaterieService("Fizica", "Ion", 20);
-	addMaterieService("Chimie", "Mircea", 30);
-	addMaterieService("Biologie", "Maria", 25);
-	addMaterieService("POO", "Cocrea", 60);
-	addMaterieService("Sport", "Zulnia", 4);
-	addMaterieService("Biologie", "Paduraru", 10);
-	addMaterieService("Biologie", "Mihail", 6);
-	addMaterieService("Sport", "Andrei", 5);
-	Materie m = Materie{ "ASC", "Mircea", 32 };
-	std::cout << m;
+		try{
+		addMaterieService("ASC", "Mircea", 32);
+		addMaterieService("POO", "Ana", 10);
+		addMaterieService("Mate", "Larisa", 15);
+		addMaterieService("Logica", "Mihai", 24);
+		addMaterieService("Fizica", "Ion", 20);
+		addMaterieService("Chimie", "Mircea", 30);
+		addMaterieService("Biologie", "Maria", 25);
+		addMaterieService("POO", "Cocrea", 60);
+		addMaterieService("Sport", "Zulnia", 4);
+		addMaterieService("Biologie", "Paduraru", 10);
+		addMaterieService("Biologie", "Mihail", 6);
+		addMaterieService("Sport", "Andrei", 5);
+		}
+		catch (std::runtime_error& e) {
+			std::cout << e.what();
+		}
+	
 }
 
 void MaterieService::delete_materie(string nume, string profesor) {
+	try{
 	if(get_materie_position(nume, profesor) == -1)
 		throw std::invalid_argument("Materia nu exista in lista.\n");
 	int materie_position = get_materie_position(nume, profesor);
 	Materie materie_stearsa = this->primeste_toate_materiile()[materie_position];
 	repo.delete_materie(materie_position);
-	undoActions.push_back(std::make_unique<UndoDel>(repo, materie_stearsa, materie_position));
+	undoActions.push_back(new UndoDel(repo, materie_stearsa, materie_position));
+}
+catch (std::runtime_error& e) {
+	std::cout << e.what();
+}
 }
 
 int MaterieService::get_materie_position(string nume, string profesor) const {
@@ -48,6 +62,7 @@ int MaterieService::get_materie_position(string nume, string profesor) const {
 }
 
 void MaterieService::update_materie(string nume, string profesor, string new_nume, string new_profesor, int new_ore) {
+	try{
 	if (get_materie_position(nume, profesor) == -1)
 		throw std::invalid_argument("Materia nu exista in lista.\n");
 	Materie materie = Materie{ new_nume, new_profesor, new_ore };
@@ -57,7 +72,11 @@ void MaterieService::update_materie(string nume, string profesor, string new_num
 
 	int materie_position = get_materie_position(nume, profesor);
 	repo.update_materie(materie_position, new_nume, new_profesor, new_ore);
-	undoActions.push_back(std::make_unique<UndoMod>(repo, materie, materie_veche));
+	undoActions.push_back(new UndoMod(repo, materie, materie_veche));
+	}
+	catch (std::runtime_error& e) {
+		std::cout << e.what();
+	}
 }
 
 
@@ -110,11 +129,17 @@ const vector<Materie> MaterieService::sort_func(int criteriu) {
 }
 
 void MaterieService::undo() {
+	try{
 	if (undoActions.empty())
 		throw ("Nu mai exista operatii de undo.\n");
 	undoActions.back()->doUndo();
 	undoActions.pop_back();
+	}
+	catch (std::runtime_error& e) {
+		std::cout << e.what();
+	}
 }
+
 
 void MaterieService::contract_add(string nume, string profesor) {
 

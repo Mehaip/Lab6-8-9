@@ -9,15 +9,16 @@ public:
 
 class UndoAdd :public ActiuneUndo {
 private:
-    MaterieRepository& repo;
+    AbstractRepo& repo;
     Materie materie_adaugata;
 public:
-    UndoAdd(MaterieRepository& r, const Materie& last) : repo{ r }, materie_adaugata{ last } {};
+    UndoAdd(AbstractRepo& r,  Materie last) : repo{ r }, materie_adaugata{ last } {};
     void doUndo() override {
         auto& materii = repo.primeste_toate_materiile();
         auto it = find(materii.begin(), materii.end(),
             materie_adaugata);
-        int poz = static_cast<int>(std::distance(repo.primeste_toate_materiile().begin(), it));
+
+        int poz = static_cast<int>(std::distance(materii.begin(), it));
         repo.delete_materie(poz);
             
     }
@@ -25,11 +26,11 @@ public:
 
 class UndoMod :public ActiuneUndo {
 private:
-    MaterieRepository& repo;
+    AbstractRepo& repo;
     Materie materie_modificata;
     Materie materie_veche;
 public:
-    class UndoMod(MaterieRepository& repo, const Materie& m, const Materie& m_v) :
+    class UndoMod(AbstractRepo& repo, const Materie& m, const Materie& m_v) :
         repo { repo }, materie_modificata{ m }, materie_veche{ m_v } {};
     void doUndo() override {
         int poz = repo.get_materie_position(materie_modificata.getNume(), materie_modificata.getProfesor());
@@ -42,11 +43,11 @@ public:
 
 class UndoDel : public ActiuneUndo {
 private:
-    MaterieRepository& repo;
+    AbstractRepo& repo;
     Materie materie_stearsa;
     int pozitia_materiei_sterse;
 public:
-    UndoDel(MaterieRepository& repos, const Materie& materie_stearsa, int poz) : repo{ repos }, materie_stearsa{ materie_stearsa },
+    UndoDel(AbstractRepo& repos, const Materie& materie_stearsa, int poz) : repo{ repos }, materie_stearsa{ materie_stearsa },
     pozitia_materiei_sterse{ poz }  {};
     void doUndo() override {
         repo.insert_materie(materie_stearsa, pozitia_materiei_sterse);

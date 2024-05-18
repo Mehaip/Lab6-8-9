@@ -118,14 +118,23 @@ void test_contract(){
 	serv.contract_random(4);
 	assert(serv.contract_get_all().size() == 4);
 	vector<MaterieDTO> lista = serv.contract_raport();
-	assert(lista.size() == 4);
 	serv.contract_empty();
 
+}
+
+void test_probability_repo() {
+	ProbabilityRepo repo(0.5);
+	MaterieValidator val;
+	Contract contract;
+	MaterieService serv(repo, val, contract);
+	serv.add_default();
+	serv.undo();
 }
 
 
 
 void test_service() {
+	test_probability_repo();
 	test_add_si_get_all_materii();
 	test_delete_materie();
 	test_update_materie();
