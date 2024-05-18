@@ -123,10 +123,12 @@ vector<Materie> all;
 const vector<Materie>& ProbabilityRepo::primeste_toate_materiile() const  {
 	///det_luck();
 	
-
+	all.clear();
 	for (auto& it : elems) {
 		all.push_back(it.second);
 	}
+
+
 
 	return all;
 }

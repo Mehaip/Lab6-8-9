@@ -17,13 +17,30 @@ void tests() {
 }
 
 void startApp() {
-	MaterieRepository repo;
-	ProbabilityRepo repo_prob(0.5);
 	MaterieValidator val;
 	Contract contract;
-	MaterieService service{ repo_prob, val, contract };
-	ConsoleUI ui{ service};
-	ui.run();
+	printf("1. Normal mode\n2. Luck mode\n");
+	printf(">>> ");
+	int command;
+	scanf_s("%d", &command);
+	if (command == 2) {
+		float chance;
+		printf("Enter chance ( 0 - 1 ) : ");
+		std::cin >> chance;
+
+
+		ProbabilityRepo repo_prob(chance);
+		MaterieService service{ repo_prob, val, contract };
+		ConsoleUI ui{ service };
+		ui.run();
+	}
+
+	else if (command == 1) {
+		MaterieRepository repo;
+		MaterieService service{ repo, val, contract };
+		ConsoleUI ui{ service };
+		ui.run();
+	}
 
 
 }

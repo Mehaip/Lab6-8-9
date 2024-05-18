@@ -17,7 +17,6 @@ const void ConsoleUI::printMenu() {
 	printf("7. Contract\n");
 	printf("8. Undo\n");
 	printf("9. Print all\n");
-	printf("10. Luck mode");
 	printf("0. Exit\n");
 }
 
@@ -31,7 +30,8 @@ void ConsoleUI::printeaza_toate_materiile(const vector<Materie>& lista) const {
 }
 
 void ConsoleUI::run() {
-	
+	vector<Materie> materii2;
+	materii2 = service.primeste_toate_materiile();
 	this->service.add_default();
 	int command;
 	printf("\n\n\n\n\n");
